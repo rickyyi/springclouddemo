@@ -1,0 +1,2 @@
+org.springframework.context.ApplicationListener=\
+cn.cookie.springclouddemo.config.MyClientConfigListener
