@@ -13,5 +13,5 @@ import org.springframework.web.bind.annotation.RequestParam;
 public interface MyServerFeignService {
 
     @RequestMapping(value = "/myTime", method = RequestMethod.GET)
-    Object queryMyTime();
+    String queryMyTime();
 }

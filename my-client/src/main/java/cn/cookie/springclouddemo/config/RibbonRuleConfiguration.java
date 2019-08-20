@@ -1,5 +1,6 @@
 package cn.cookie.springclouddemo.config;
 
+import cn.cookie.springclouddemo.ribbon.MyLoadBalanceRule;
 import com.netflix.loadbalancer.IRule;
 import com.netflix.loadbalancer.RandomRule;
 import org.springframework.context.ApplicationContext;
@@ -15,7 +16,7 @@ public class RibbonRuleConfiguration {
 
     @Bean
     public IRule createRule() {
-        return new RandomRule();
+        return new MyLoadBalanceRule();
     }
 
     @Bean(name = "myClientConfigListener")

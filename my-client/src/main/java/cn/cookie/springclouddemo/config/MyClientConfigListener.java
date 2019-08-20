@@ -17,7 +17,7 @@ public class MyClientConfigListener implements ApplicationListener<ApplicationEn
         String port = environment.getProperty("server.port");
 
         Properties properties = new Properties();
-        properties.put("server.port", 8891);
+        properties.put("RUN_PROPERTY", 8891);
         environment.getPropertySources().addFirst(new PropertiesPropertySource("run-profile", properties));
     }
 }
