@@ -18,6 +18,7 @@ public class MyClientConfigListener implements ApplicationListener<ApplicationEn
 
         Properties properties = new Properties();
         properties.put("RUN_PROPERTY", 8891);
+        properties.put("cookie.aws.s3.bucketName", "bucketName123");
         environment.getPropertySources().addFirst(new PropertiesPropertySource("run-profile", properties));
     }
 }

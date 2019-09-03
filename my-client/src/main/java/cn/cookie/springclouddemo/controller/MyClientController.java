@@ -1,8 +1,10 @@
 package cn.cookie.springclouddemo.controller;
 
+import cn.cookie.springclouddemo.config.MyProperties;
 import cn.cookie.springclouddemo.feign.HelloFeignService;
 import cn.cookie.springclouddemo.feign.MyServerFeignService;
 import cn.cookie.springclouddemo.service.HelloService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
@@ -12,12 +14,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 
 /**
  * Created by yizhiqiang on 2019/7/23.
  */
 @RestController
+@Slf4j
 public class MyClientController {
 
     @Value(value = "${RUN_PROPERTY}")
@@ -28,6 +32,8 @@ public class MyClientController {
     private HelloFeignService helloFeignService;
     @Resource
     private MyServerFeignService myServerFeignService;
+    @Autowired
+    private MyProperties myProperties;
 
     @Resource
     private HelloService helloService;
@@ -56,5 +62,11 @@ public class MyClientController {
     @GetMapping("search")
     public Object search(@RequestParam(name = "key") String key) {
         return helloService.execute(key);
+    }
+
+    @PostConstruct
+    public void m() {
+        log.info("hello");
+        myProperties.getBucketName();
     }
 }

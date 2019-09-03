@@ -1,5 +1,6 @@
 package cn.cookie.springclouddemo.service;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.client.ClientHttpRequest;
 import org.springframework.http.client.ClientHttpResponse;
@@ -14,6 +15,7 @@ import java.lang.reflect.Method;
 /**
  * Created by yizhiqiang on 2019/7/29.
  */
+@Slf4j
 public class HelloServiceProxy implements InvocationHandler {
 
 

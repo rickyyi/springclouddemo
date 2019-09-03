@@ -1,1 +1,4 @@
 org.springframework.context.ApplicationListener=cn.cookie.springclouddemo.config.MyClientConfigListener
+
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+cn.cookie.springclouddemo.config.S3ServiceAutoConfiguration
