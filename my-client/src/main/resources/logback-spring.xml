@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configuration debug="false">
-
+<configuration>
+    <!-- java -jar target/my-client-0.0.1-SNAPSHOT.jar -DAPP_NAME=123 -->
+    <contextName>${APP_NAME}|${HOST_IP:-${SERVER_IP}}|${SERVER_PORT}</contextName>
+    <contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator">
+        <resetJUL>true</resetJUL>
+    </contextListener>
     <!--定义日志文件的存储地址 勿在 LogBack 的配置中使用相对路径-->
     <property name="LOG_HOME" value="/tmp" />
 
@@ -8,7 +12,7 @@
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
             <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度,%msg：日志消息，%n是换行符-->
-            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%contextName] [%thread] %-5level %logger{50} - %msg %X{requestId}%n</pattern>
         </encoder>
         <filter class="cn.cookie.springclouddemo.log.MyLogFilter" />
     </appender>
@@ -23,7 +27,7 @@
         </rollingPolicy>
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
             <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符-->
-            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%contextName] [%thread] %-5level %logger{50} - %msg%n</pattern>
         </encoder>
         <!--日志文件最大的大小-->
         <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
@@ -45,8 +49,23 @@
     <logger name="java.sql.PreparedStatement" level="DEBUG"/>
 
     <!-- 日志输出级别 -->
-    <root level="DEBUG">
+    <root level="INFO">
         <appender-ref ref="STDOUT" />
         <appender-ref ref="FILE"/>
     </root>
+
+    <!--
+    <if condition='property("spring.profiles.active").equals("local")'>
+        <then>
+            <root level="INFO">
+                <appender-ref ref="STDOUT"/>
+            </root>
+        </then>
+        <else>
+            <root level="INFO">
+                <appender-ref ref="FILE"/>
+            </root>
+        </else>
+    </if>
+    -->
 </configuration>

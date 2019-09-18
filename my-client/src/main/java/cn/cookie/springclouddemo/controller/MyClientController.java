@@ -5,6 +5,7 @@ import cn.cookie.springclouddemo.feign.HelloFeignService;
 import cn.cookie.springclouddemo.feign.MyServerFeignService;
 import cn.cookie.springclouddemo.service.HelloService;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
@@ -66,7 +67,9 @@ public class MyClientController {
 
     @PostConstruct
     public void m() {
+        MDC.put("requestId", "123456789");
         log.info("hello");
+        MDC.remove("requestId");
         myProperties.getBucketName();
     }
 }
